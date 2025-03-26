@@ -1,0 +1,135 @@
+{% block content %}
+{% import "_macros.html" as macro %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Proveedores</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 60px;
+        }
+        .tr-head {
+            background: #dff0d8;
+        }
+        .diseno-contenedor {
+            background-color: #7895B2;
+            padding: 20px;
+            width: 1000px;
+            margin: auto;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+        }
+        .diseno-encabezado {
+            display: flex;
+            justify-content: space-between;
+            background-color: #B0C4DE;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .diseno-input {
+            width: 200px;
+            padding: 5px;
+            margin: 5px;
+        }
+        .diseno-tabla {
+            margin-top: 20px;
+            background-color: #B0C4DE;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        .diseno-boton {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #4F709C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .diseno-tamano, .diseno-ingredientes, .diseno-cantidad {
+            background-color: #B0C4DE;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="diseno-contenedor">
+    <h3>Registro de Proveedores</h3>
+    <form action="" method="post" novalidate>
+        {{ form.csrf_token }}
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="diseno-encabezado">
+            {{ macro.camposProveedor(form.nombre) }} 
+            {{ macro.camposProveedor(form.contacto) }}
+            {{ macro.camposProveedor(form.telefono) }}
+            
+        </div>
+        <div class="diseno-encabezado">
+            {{ macro.camposProveedor(form.correo) }}
+            {{ macro.camposProveedor(form.direccion) }} 
+            {{ macro.camposProveedor(form.empresa) }}
+            
+            
+        </div>
+        <div class="diseno-encabezado">
+            {{ macro.camposProveedor(form.rfc) }}
+            {{ macro.camposProveedor(form.usuario) }}
+            {{ macro.camposProveedor(form.contrasenia) }}
+        </div>
+        <button type="submit" class="diseno-boton">Registrar Proveedor</button>
+    </form>
+
+    <div class="diseno-tabla">
+        <h3>Lista de Proveedores</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Contacto</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Empresa</th>
+                    <th>RFC</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proveedor in proveedores %}
+                <tr>
+                    <td>{{ proveedor.nombre }}</td>
+                    <td>{{ proveedor.contacto }}</td>
+                    <td>{{ proveedor.telefono }}</td>
+                    <td>{{ proveedor.correo }}</td>
+                    <td>{{ proveedor.empresa }}</td>
+                    <td>{{ proveedor.rfc }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <form action="{{ url_for('proveedores.logout') }}" method="GET">
+        <button type="submit" class="diseno-boton">Cerrar sesión</button>
+    </form>
+    
+    
+</div>
+
+</body>
+</html>
+{% endblock %}
