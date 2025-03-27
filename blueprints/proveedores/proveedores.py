@@ -21,38 +21,31 @@ def gestionar_proveedores():
         contrasenia = request.form.get('contrasenia')
 
         nuevo_usuario = Usuarios(
+            nombre=nombre,
+            apellido='', 
+            telefono=telefono,
+            correo=correo,
+            contacto=contacto,
+            rol="proveedor", 
+            rfc=rfc,
+            empresa=empresa,
             usuario=usuario,
-            contrasenia=contrasenia,
-            rol="proveedor"
+            contrasenia=contrasenia
         )
 
         try:
             db.session.add(nuevo_usuario)
             db.session.commit()
 
-            nuevo_proveedor = Proveedores(
-                nombre=nombre,
-                contacto=contacto,
-                empresa=empresa,
-                telefono=telefono,
-                correo=correo,
-                direccion=direccion,
-                rfc=rfc,
-                usuario=usuario,
-                contrasenia=contrasenia,
-                usuario_id=nuevo_usuario.id 
-            )
-
-            db.session.add(nuevo_proveedor)
-            db.session.commit()
-
             return redirect(url_for('proveedores.gestionar_proveedores'))
         except Exception as e:
             db.session.rollback()
-            flash("Error al registrar el proveedor", "danger")
+            flash(f"Error al registrar el proveedor: {str(e)}", "danger")
 
-    proveedores = Proveedores.query.all()
+    proveedores = Usuarios.query.filter_by(rol='proveedor').all()
+    
     return render_template('proveedores.html', form=form, proveedores=proveedores)
+
 
 
 @proveedores_bp.route("/logout")

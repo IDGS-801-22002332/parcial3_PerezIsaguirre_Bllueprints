@@ -18,14 +18,18 @@ class Pedido(db.Model):
     subtotal = db.Column(db.Float, nullable=False)
 
 class Usuarios(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100),unique=True, nullable= False)
-    apellido = db.Column(db.String(100), nullable=False)
-    telefono = db.Column(db.String(100), nullable=False)
-    correo = db.Column(db.String(100), unique=True, nullable=False)
-    rol= db.Column(db.String(100), nullable=False)
-    usuario = db.Column(db.String(100), unique=True, nullable=False)
-    contrasenia = db.Column(db.String(100), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nombre = db.Column(db.String(100))
+    apellido = db.Column(db.String(100))
+    telefono = db.Column(db.String(100))
+    correo = db.Column(db.String(100), unique=True)
+    contacto = db.Column(db.String(100))
+    rol = db.Column(db.String(100))
+    rfc = db.Column(db.String(20))
+    empresa = db.Column(db.String(100))
+    usuario = db.Column(db.String(100), unique=True)
+    contrasenia = db.Column(db.String(100))
+
 
 class Proveedores(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
